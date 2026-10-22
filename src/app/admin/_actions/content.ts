@@ -2,9 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
-import { contentDefaults, isContentKey } from "@/lib/content-defaults";
+import { contentDefaults, contentSchemas, isContentKey, type Field } from "@/lib/content-defaults";
+import type { Prisma } from "@/generated/prisma/client";
 import { db } from "@/lib/db";
-import { str } from "@/lib/utils";
+import { cleanHtml, str } from "@/lib/utils";
 import { type FormState, refreshSite } from "./shared";
 
 // Saves one page's editable content (sent from the dashboard as JSON)
@@ -24,9 +25,12 @@ export async function saveContent(_prev: FormState, form: FormData): Promise<For
     return { error: "Invalid content." };
   }
 
-  // Only keep fields this page actually has
+  // Only keep fields this page actually has, and clean any rich text
   const allowed = Object.keys(contentDefaults[key]);
-  const clean = Object.fromEntries(Object.entries(value).filter(([k]) => allowed.includes(k)));
+  const clean = cleanRichText(
+    contentSchemas[key].fields,
+    Object.fromEntries(Object.entries(value).filter(([k]) => allowed.includes(k))),
+  ) as Prisma.InputJsonObject;
 
   await db.setting.upsert({
     where: { key },
@@ -44,4 +48,17 @@ export async function resetContent(form: FormData) {
   await db.setting.deleteMany({ where: { key } });
   refreshSite();
   redirect(`/admin/pages/${key}?reset=${Date.now()}`);
+}
+
+type Json = Record<string, unknown>;
+
+function cleanRichText(fields: Field[], value: Json): Json {
+  const out: Json = { ...value };
+  for (const field of fields) {
+    const v = out[field.name];
+    if (field.type === "richtext" && typeof v === "string") out[field.name] = cleanHtml(v);
+    else if (field.type === "group" && v && typeof v === "object") out[field.name] = cleanRichText(field.fields, v as Json);
+    else if (field.type === "list" && Array.isArray(v)) out[field.name] = v.map((item) => cleanRichText(field.fields, item as Json));
+  }
+  return out;
 }

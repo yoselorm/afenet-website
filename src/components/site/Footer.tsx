@@ -7,7 +7,7 @@ export default function Footer({ settings }: { settings: Content<"settings"> }) 
     <footer className="main-footer">
       <div className="container">
         <div className="row">
-          <div className="col-lg-5 col-md-12">
+          <div className="col-lg-4 col-md-12">
             <div className="about-footer">
               <div className="footer-logo">
                 <figure>
@@ -20,7 +20,7 @@ export default function Footer({ settings }: { settings: Content<"settings"> }) 
             </div>
           </div>
 
-          <div className="col-lg-3 col-md-5 col-12">
+          <div className="col-lg-2 col-md-4 col-6">
             <div className="footer-links">
               <h3>quick links</h3>
               <ul>
@@ -33,7 +33,17 @@ export default function Footer({ settings }: { settings: Content<"settings"> }) 
             </div>
           </div>
 
-          <div className="col-lg-4 col-md-7 col-12">
+          <div className="col-lg-2 col-md-3 col-6">
+            <div className="footer-links">
+              <h3>legal</h3>
+              <ul className="legal-links">
+                <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link href="/terms-of-use">Terms of Use</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-md-5 col-12">
             <div className="footer-links footer-contact-box">
               <h3>contact us</h3>
               <div className="footer-info-box">

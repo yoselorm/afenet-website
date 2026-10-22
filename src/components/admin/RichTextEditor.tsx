@@ -6,15 +6,30 @@ import StarterKit from "@tiptap/starter-kit";
 import { useState } from "react";
 import { uploadImage } from "./ImageField";
 
-// Word-processor style editor. The HTML is kept in a hidden input so it submits with the form.
-export default function RichTextEditor({ name, label, value = "" }: { name: string; label: string; value?: string }) {
+// Word-processor style editor. The HTML is kept in a hidden input (when `name` is given) so it
+// submits with the form, and/or reported through onChange.
+export default function RichTextEditor({
+  name,
+  label,
+  value = "",
+  onChange,
+}: {
+  name?: string;
+  label: string;
+  value?: string;
+  onChange?: (html: string) => void;
+}) {
   const [html, setHtml] = useState(value);
 
   const editor = useEditor({
     extensions: [StarterKit.configure({ link: { openOnClick: false } }), Image],
     content: value,
     immediatelyRender: false,
-    onUpdate: ({ editor }) => setHtml(editor.isEmpty ? "" : editor.getHTML()),
+    onUpdate: ({ editor }) => {
+      const next = editor.isEmpty ? "" : editor.getHTML();
+      setHtml(next);
+      onChange?.(next);
+    },
   });
 
   const active = useEditorState({
@@ -95,7 +110,7 @@ export default function RichTextEditor({ name, label, value = "" }: { name: stri
         </div>
         <EditorContent editor={editor} className="rich-editor-content" />
       </div>
-      <input type="hidden" name={name} value={html} />
+      {name && <input type="hidden" name={name} value={html} />}
     </div>
   );
 }

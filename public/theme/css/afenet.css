@@ -485,3 +485,20 @@
 	font-size: 19px;
 	line-height: 1.35em;
 }
+
+/* Privacy policy / terms pages */
+.legal-updated {
+	color: var(--text-color);
+	font-size: 14px;
+	margin-bottom: 24px;
+}
+
+.legal-content .post-entry h2 {
+	font-size: 26px;
+	margin: 30px 0 12px;
+}
+
+/* Keep "Terms of Use" as written (the theme capitalises every word in footer links) */
+.footer-links ul.legal-links li {
+	text-transform: none;
+}

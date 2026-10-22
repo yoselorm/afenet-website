@@ -3,7 +3,7 @@
 // The `contentSchemas` below describe the dashboard form used to edit each key.
 
 export type Field =
-  | { name: string; label: string; type: "text" | "textarea" | "url"; help?: string }
+  | { name: string; label: string; type: "text" | "textarea" | "url" | "richtext"; help?: string }
   // aspect = width / height of the space on the website; photos are cropped to it on upload
   | { name: string; label: string; type: "image"; aspect?: number; help?: string }
   | { name: string; label: string; type: "strings"; help?: string }
@@ -180,6 +180,18 @@ export const contentDefaults = {
       title: "Meet the people behind AFENET",
       text: "",
     },
+  },
+
+  privacy: {
+    header: { title: "Privacy Policy", image: `${IMG}/page-header-bg.jpg` },
+    lastUpdated: "October 2026",
+    body: '<p><em>Draft — please have this reviewed and replaced with AFENET&#39;s official policy.</em></p><p>The African Field Epidemiology Network (AFENET) respects your privacy. This policy explains what information this website collects and how it is used.</p><h2>Information we collect</h2><ul><li><strong>Contact form:</strong> your name, email address, phone number (optional), subject and message, when you choose to send them to us.</li><li><strong>Technical data:</strong> standard server logs (such as your IP address and browser type) kept by our hosting provider for security and reliability.</li></ul><h2>How we use it</h2><p>We use the information you send only to respond to your enquiry. We do not sell or rent your personal information to anyone.</p><h2>Cookies</h2><p>This website does not use advertising or tracking cookies. A single essential cookie is used only when staff log in to manage the website.</p><h2>How long we keep it</h2><p>Messages are kept for as long as needed to handle your enquiry and are then deleted.</p><h2>Your rights</h2><p>You can ask us to see, correct or delete the personal information we hold about you by contacting us using the details on our Contact page.</p>',
+  },
+
+  terms: {
+    header: { title: "Terms of Use", image: `${IMG}/page-header-bg.jpg` },
+    lastUpdated: "October 2026",
+    body: '<p><em>Draft — please have this reviewed and replaced with AFENET&#39;s official terms.</em></p><p>By using this website you agree to these terms.</p><h2>Use of content</h2><p>The content on this website is provided for general information about the African Field Epidemiology Network (AFENET) and its work. You may share it for non-commercial purposes with credit to AFENET. Logos and images may not be reused without permission.</p><h2>Accuracy</h2><p>We work to keep information accurate and up to date, but we cannot guarantee that everything on the website is complete or current. It is not medical advice.</p><h2>Links to other websites</h2><p>This website may link to websites run by other organisations. AFENET is not responsible for their content or privacy practices.</p><h2>Changes</h2><p>We may update these terms from time to time. The latest version will always be on this page.</p><h2>Contact</h2><p>Questions about these terms can be sent to us using the details on our Contact page.</p>',
   },
 
   contact: {
@@ -400,6 +412,26 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
     title: "Our Team page",
     description: "Banner and intro for the team page.",
     fields: [pageHeaderFields("Our Team"), sectionTitleFields("Intro")],
+  },
+
+  privacy: {
+    title: "Privacy Policy",
+    description: "The privacy policy page linked in the footer.",
+    fields: [
+      pageHeaderFields("Privacy Policy"),
+      { name: "lastUpdated", label: "Last updated (shown under the title)", type: "text" },
+      { name: "body", label: "Page text", type: "richtext" },
+    ],
+  },
+
+  terms: {
+    title: "Terms of Use",
+    description: "The terms of use page linked in the footer.",
+    fields: [
+      pageHeaderFields("Terms of Use"),
+      { name: "lastUpdated", label: "Last updated (shown under the title)", type: "text" },
+      { name: "body", label: "Page text", type: "richtext" },
+    ],
   },
 
   contact: {

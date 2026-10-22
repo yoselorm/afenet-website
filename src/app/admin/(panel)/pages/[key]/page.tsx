@@ -14,6 +14,8 @@ const PUBLIC_PATHS: Record<string, string> = {
   news: "/news",
   team: "/team",
   contact: "/contact",
+  privacy: "/privacy-policy",
+  terms: "/terms-of-use",
   settings: "/",
 };
 

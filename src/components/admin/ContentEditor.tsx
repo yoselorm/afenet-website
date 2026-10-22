@@ -6,6 +6,7 @@ import type { FormState } from "@/app/admin/_actions/shared";
 import type { Field } from "@/lib/content-defaults";
 import { FormMessage, SubmitButton } from "./FormBits";
 import ImageField from "./ImageField";
+import RichTextEditor from "./RichTextEditor";
 
 type Value = Record<string, unknown>;
 
@@ -64,6 +65,14 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
           />
           {help}
         </div>
+      );
+
+    case "richtext":
+      return (
+        <>
+          <RichTextEditor label={field.label} value={String(value ?? "")} onChange={onChange} />
+          {help}
+        </>
       );
 
     case "image":

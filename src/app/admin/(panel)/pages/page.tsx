@@ -9,6 +9,8 @@ const ICONS: Record<string, string> = {
   news: "fa-regular fa-newspaper",
   team: "fa-solid fa-users",
   contact: "fa-regular fa-envelope",
+  privacy: "fa-solid fa-user-shield",
+  terms: "fa-solid fa-scale-balanced",
 };
 
 export default function PagesIndex() {
