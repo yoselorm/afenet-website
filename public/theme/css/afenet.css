@@ -172,12 +172,12 @@
 
 .focus-area-item {
 	background: var(--secondary-color);
-	border-radius: 30px;
-	padding: 30px;
-	margin-bottom: 30px;
-	height: calc(100% - 30px);
+	border-radius: 20px;
+	padding: 18px 20px;
+	margin-bottom: 20px;
+	height: calc(100% - 20px);
 	display: flex;
-	gap: 20px;
+	gap: 14px;
 	align-items: flex-start;
 	transition: all 0.3s ease-in-out;
 }
@@ -189,22 +189,23 @@
 
 .focus-area-number {
 	flex: 0 0 auto;
-	width: 54px;
-	height: 54px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
 	background: var(--accent-color);
 	color: var(--white-color);
 	font-family: var(--accent-font);
 	font-weight: 800;
-	font-size: 18px;
+	font-size: 15px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .focus-area-item h3 {
-	font-size: 20px;
-	line-height: 1.4em;
+	font-size: 16px;
+	line-height: 1.45em;
+	align-self: center;
 	margin: 0;
 	text-transform: none;
 }
@@ -228,7 +229,7 @@
 .team-single-image img {
 	width: 100%;
 	border-radius: 30px;
-	aspect-ratio: 1 / 1.1;
+	aspect-ratio: 4 / 5;
 	object-fit: cover;
 }
 
@@ -275,4 +276,212 @@
 	.team-single-content {
 		margin-top: 30px;
 	}
+}
+
+/* ---------- Compact cards ---------- */
+
+/* Team: 4 per row, centred text, social icons appear over the photo on hover */
+.team-member-item {
+	border-radius: 24px;
+	margin-bottom: 24px;
+	height: calc(100% - 24px);
+}
+
+.team-member-item .team-image {
+	position: relative;
+	overflow: hidden;
+}
+
+.team-member-item .team-image figure,
+.team-member-item .team-image img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	border-radius: 24px 24px 0 0;
+}
+
+.team-member-item .team-body {
+	padding: 16px 14px 18px;
+	text-align: center;
+}
+
+.team-member-item .team-content {
+	margin: 0;
+}
+
+.team-member-item .team-content h3 {
+	font-size: 18px;
+	margin-bottom: 4px;
+}
+
+.team-member-item .team-content p {
+	font-size: 14px;
+}
+
+.team-social-overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 16px;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	opacity: 0;
+	transform: translateY(10px);
+	transition: all 0.3s ease-in-out;
+}
+
+.team-member-item:hover .team-social-overlay,
+.team-member-item:focus-within .team-social-overlay {
+	opacity: 1;
+	transform: none;
+}
+
+.team-social-overlay ul {
+	display: flex;
+	gap: 8px;
+}
+
+.team-social-overlay ul li {
+	margin: 0;
+}
+
+.team-social-overlay ul li a {
+	background: var(--white-color);
+	border-color: var(--white-color);
+	color: var(--primary-color);
+}
+
+.team-social-overlay ul li a:hover {
+	background: var(--accent-color);
+	border-color: var(--accent-color);
+	color: var(--white-color);
+}
+
+/* Touch screens have no hover, so keep the icons visible there */
+@media (hover: none) {
+	.team-social-overlay {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Statistics: smaller, all the same height */
+.what-we-do {
+	padding: 60px 0;
+}
+
+.company-counter-item {
+	padding: 24px 16px;
+	border-radius: 24px;
+	height: calc(100% - 20px);
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.company-counter-item .company-counter-content h3 {
+	font-size: 38px;
+	margin-bottom: 6px;
+}
+
+.company-counter-item .company-counter-content p {
+	font-size: 14px;
+	line-height: 1.4em;
+}
+
+/* Contact page info boxes */
+.contact-info-item {
+	border-radius: 24px;
+	padding: 22px 24px;
+	margin-bottom: 24px;
+	height: calc(100% - 24px);
+}
+
+.contact-info-item .icon-box {
+	margin-bottom: 14px;
+}
+
+.contact-info-item .icon-box img {
+	max-width: 36px;
+}
+
+.contact-info-body h3 {
+	font-size: 19px;
+	margin-bottom: 8px;
+}
+
+/* Event cards and event page photo: 4:5 */
+.project-image,
+.project-image img,
+.project-item .project-image a::before {
+	border-radius: 24px;
+}
+
+.project-image img {
+	aspect-ratio: 4 / 5;
+}
+
+.project-body {
+	left: 24px;
+	right: 24px;
+}
+
+.project-body-title h3 {
+	font-size: 20px;
+}
+
+.event-date-badge {
+	top: 16px;
+	left: 16px;
+	padding: 8px 12px;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+.event-date-badge span {
+	font-size: 22px;
+}
+
+.event-cover {
+	margin-bottom: 30px;
+}
+
+.event-cover figure,
+.event-cover img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	border-radius: 24px;
+}
+
+.event-info-box {
+	border-radius: 24px;
+	padding: 24px;
+}
+
+/* News cards */
+.blog-item {
+	border-radius: 24px;
+}
+
+.post-featured-image img,
+.post-featured-image figure {
+	border-radius: 24px 24px 0 0;
+}
+
+.post-item-content {
+	padding: 20px 22px 24px;
+}
+
+.post-item-body {
+	margin-bottom: 14px;
+}
+
+.post-item-body h2 {
+	font-size: 19px;
+	line-height: 1.35em;
 }

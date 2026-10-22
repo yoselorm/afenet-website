@@ -1,5 +1,6 @@
 import { requireAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
+import Toaster from "@/components/admin/Toaster";
 import Sidebar from "./Sidebar";
 import { logout } from "../_actions/auth";
 
@@ -34,6 +35,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
         </header>
         <main className="admin-content">{children}</main>
       </div>
+      <Toaster />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { startTransition } from "react";
+import { startTransition, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import type { FormState } from "@/app/admin/_actions/shared";
+import { toast } from "./Toaster";
 
 // Submits without React's automatic form reset, so typed values survive a validation error
 export function submitWithoutReset(formAction: (form: FormData) => void) {
@@ -37,10 +38,20 @@ export function SubmitButton({
   );
 }
 
+// Success → a toast that disappears; error → a banner that stays so it can be read
 export function FormMessage({ state }: { state: FormState }) {
-  if (!state) return null;
-  if (state.error) return <div className="alert alert-danger">{state.error}</div>;
-  if (state.ok) return <div className="alert alert-success">{state.ok}</div>;
+  useEffect(() => {
+    if (state?.ok) toast(state.ok);
+  }, [state]);
+
+  if (state?.error) {
+    return (
+      <div className="alert alert-danger d-flex gap-2 align-items-start" role="alert">
+        <i className="fa-solid fa-circle-exclamation mt-1"></i>
+        <span>{state.error}</span>
+      </div>
+    );
+  }
   return null;
 }
 

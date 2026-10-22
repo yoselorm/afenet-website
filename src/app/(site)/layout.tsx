@@ -18,7 +18,7 @@ const THEME_CSS = [
 ];
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [settings, about] = await Promise.all([getContent("settings"), getContent("about")]);
+  const settings = await getContent("settings");
 
   return (
     <>
@@ -47,7 +47,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
       <Header logo={settings.logo} siteName={settings.siteName} />
       {children}
-      <Footer settings={settings} focusAreas={about.whatWeDo.items} />
+      <Footer settings={settings} />
     </>
   );
 }

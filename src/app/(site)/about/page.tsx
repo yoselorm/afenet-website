@@ -22,7 +22,7 @@ export default async function AboutPage() {
     db.teamMember.findMany({
       where: { published: true },
       orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
-      take: 3,
+      take: 4,
     }),
   ]);
   const { whoWeAre, whatWeDo } = about;
@@ -106,7 +106,7 @@ export default async function AboutPage() {
             </div>
             <div className="row">
               {team.map((member, i) => (
-                <div key={member.id} className="col-lg-4 col-md-6">
+                <div key={member.id} className="col-lg-3 col-md-4 col-6">
                   <TeamCard member={member} index={i} />
                 </div>
               ))}

@@ -47,7 +47,7 @@ export default async function TeamPage() {
               )}
               <div className="row">
                 {group.map((member, i) => (
-                  <div key={member.id} className="col-lg-4 col-md-6">
+                  <div key={member.id} className="col-lg-3 col-md-4 col-6">
                     <TeamCard member={member} index={i} />
                   </div>
                 ))}

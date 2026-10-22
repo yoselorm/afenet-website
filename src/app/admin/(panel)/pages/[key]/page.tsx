@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import AdminHeader from "@/components/admin/AdminHeader";
 import ContentEditor from "@/components/admin/ContentEditor";
+import { FlashToast } from "@/components/admin/Toaster";
 import { ConfirmForm } from "@/components/admin/FormBits";
 import { getContent } from "@/lib/content";
 import { contentSchemas, isContentKey } from "@/lib/content-defaults";
@@ -45,7 +46,7 @@ export default async function EditPageContent({ params, searchParams }: PageProp
           <i className="fa-solid fa-rotate-left me-1"></i> Reset to defaults
         </ConfirmForm>
       </div>
-      {reset && <div className="alert alert-info">This page has been reset to the default text.</div>}
+      {reset && <FlashToast message="Page reset to the default text." />}
       {/* A new key after a reset reloads the form with the default values */}
       <ContentEditor key={String(reset ?? "")} contentKey={key} fields={schema.fields} initial={content} />
     </>

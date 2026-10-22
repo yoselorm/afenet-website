@@ -3,7 +3,9 @@
 // The `contentSchemas` below describe the dashboard form used to edit each key.
 
 export type Field =
-  | { name: string; label: string; type: "text" | "textarea" | "image" | "url"; help?: string }
+  | { name: string; label: string; type: "text" | "textarea" | "url"; help?: string }
+  // aspect = width / height of the space on the website; photos are cropped to it on upload
+  | { name: string; label: string; type: "image"; aspect?: number; help?: string }
   | { name: string; label: string; type: "strings"; help?: string }
   | { name: string; label: string; type: "group"; fields: Field[]; help?: string }
   | { name: string; label: string; type: "list"; fields: Field[]; itemLabel: string; help?: string };
@@ -16,7 +18,7 @@ const pageHeaderFields = (title: string): Field => ({
   type: "group",
   fields: [
     { name: "title", label: `Banner title (default “${title}”)`, type: "text" },
-    { name: "image", label: "Banner background image", type: "image" },
+    { name: "image", label: "Banner background image", type: "image", aspect: 3 },
   ],
 });
 
@@ -202,7 +204,7 @@ const ctaFields: Field = {
     { name: "text", label: "Text", type: "textarea" },
     { name: "buttonText", label: "Button text", type: "text" },
     { name: "buttonLink", label: "Button link", type: "url" },
-    { name: "image", label: "Side image", type: "image" },
+    { name: "image", label: "Side image", type: "image", help: "Works best as a cut-out PNG with a transparent background." },
   ],
 };
 
@@ -254,7 +256,7 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
           { name: "subtitle", label: "Small heading", type: "text" },
           { name: "title", label: "Main heading", type: "text" },
           { name: "text", label: "Text", type: "textarea" },
-          { name: "image", label: "Background image", type: "image" },
+          { name: "image", label: "Background image", type: "image", aspect: 16 / 9 },
           { name: "primaryText", label: "First button text", type: "text" },
           { name: "primaryLink", label: "First button link", type: "url" },
           { name: "secondaryText", label: "Second button text", type: "text" },
@@ -269,7 +271,7 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
           { name: "subtitle", label: "Small heading", type: "text" },
           { name: "title", label: "Main heading", type: "text" },
           { name: "text", label: "Text", type: "textarea" },
-          { name: "image", label: "Image", type: "image" },
+          { name: "image", label: "Image", type: "image", aspect: 7 / 8 },
           { name: "points", label: "Bullet points", type: "strings" },
           { name: "buttonText", label: "Button text", type: "text" },
           { name: "buttonLink", label: "Button link", type: "url" },
@@ -343,7 +345,7 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
           { name: "subtitle", label: "Small heading", type: "text" },
           { name: "title", label: "Main heading", type: "text" },
           { name: "body", label: "Text (leave a blank line between paragraphs)", type: "textarea" },
-          { name: "image", label: "Image", type: "image" },
+          { name: "image", label: "Image", type: "image", aspect: 7 / 8 },
         ],
       },
       {

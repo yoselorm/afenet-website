@@ -80,7 +80,7 @@ export function NewsForm({ post }: { post?: NewsPost }) {
             <div className="card-body">
               <Published checked={post?.published ?? true} label="Published (visible on the website)" />
               <Text name="publishedAt" label="Publish date" type="date" value={toDateInput(post?.publishedAt ?? new Date())} />
-              <ImageField name="coverImage" label="Cover image" value={post?.coverImage ?? ""} />
+              <ImageField name="coverImage" label="Cover image" value={post?.coverImage ?? ""} aspect={3 / 2} />
               <Text name="author" label="Author" value={post?.author ?? "AFENET"} />
               <Text name="tags" label="Tags" value={post?.tags} help="Separate with commas, e.g. surveillance, training" />
               <Text name="slug" label="URL name" value={post?.slug} help="Optional. Made from the title if left empty." />
@@ -123,7 +123,7 @@ export function EventForm({ event }: { event?: Event }) {
               <Text name="endDate" label="End date" type="date" value={toDateInput(event?.endDate)} help="Leave empty for one-day events." />
               <Text name="location" label="Location" value={event?.location} help="e.g. Kampala, Uganda — or Online" />
               <Text name="registrationUrl" label="Registration link" value={event?.registrationUrl} help="Optional. Shows a “Register now” button." />
-              <ImageField name="coverImage" label="Cover image" value={event?.coverImage ?? ""} />
+              <ImageField name="coverImage" label="Cover image" value={event?.coverImage ?? ""} aspect={4 / 5} />
               <Text name="slug" label="URL name" value={event?.slug} help="Optional. Made from the name if left empty." />
               <SubmitButton pending={pending}>{event ? "Save changes" : "Create event"}</SubmitButton>
             </div>
@@ -186,7 +186,7 @@ export function TeamForm({ member }: { member?: TeamMember }) {
           <div className="card mb-4">
             <div className="card-body">
               <Published checked={member?.published ?? true} label="Show on the website" />
-              <ImageField name="photo" label="Photo" value={member?.photo ?? ""} help="A square or portrait photo works best." />
+              <ImageField name="photo" label="Photo" value={member?.photo ?? ""} aspect={4 / 5} />
               <Text name="sortOrder" label="Display order" type="number" value={member?.sortOrder ?? 0} help="Lower numbers are shown first." />
               <SubmitButton pending={pending}>{member ? "Save changes" : "Add member"}</SubmitButton>
             </div>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import AdminHeader from "@/components/admin/AdminHeader";
+import { FlashToast } from "@/components/admin/Toaster";
 import { TeamForm } from "@/components/admin/EntityForms";
 import { ConfirmForm } from "@/components/admin/FormBits";
 import { db } from "@/lib/db";
@@ -13,7 +14,7 @@ export default async function EditTeamMemberPage({ params, searchParams }: PageP
   return (
     <>
       <AdminHeader title="Edit team member" back={{ href: "/admin/team", label: "All team members" }} />
-      {created && <div className="alert alert-success">Team member added.</div>}
+      {created && <FlashToast message="Team member added." />}
       <TeamForm member={member} />
       <ConfirmForm action={deleteTeamMember} id={member.id} message={`Remove ${member.name} from the team? This cannot be undone.`}>
         <i className="fa-solid fa-trash me-1"></i> Delete member

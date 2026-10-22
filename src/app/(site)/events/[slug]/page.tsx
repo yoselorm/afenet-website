@@ -26,15 +26,17 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
       <div className="page-single-post">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
-              {event.coverImage && (
-                <div className="post-image">
+            {event.coverImage && (
+              <div className="col-lg-5">
+                {/* Same 4:5 shape as the event cards, so one crop works for both */}
+                <div className="event-cover">
                   <figure className="image-anime reveal">
                     <img src={event.coverImage} alt={event.title} />
                   </figure>
                 </div>
-              )}
-
+              </div>
+            )}
+            <div className={event.coverImage ? "col-lg-7" : "col-lg-12"}>
               <div className="event-info-box wow fadeInUp">
                 <ul>
                   <li>

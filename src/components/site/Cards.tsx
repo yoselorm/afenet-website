@@ -4,7 +4,7 @@ import { formatDate, formatEventDates } from "@/lib/utils";
 
 const PLACEHOLDER = "/theme/images/post-1.jpg";
 
-const delay = (index: number) => `${((index % 3) + 1) * 0.25}s`;
+const delay = (index: number, perRow = 3) => `${((index % perRow) + 1) * 0.2}s`;
 
 export function NewsCard({ post, index = 0 }: { post: NewsPost; index?: number }) {
   const href = `/news/${post.slug}`;
@@ -88,23 +88,15 @@ export function TeamCard({ member, index = 0 }: { member: TeamMember; index?: nu
   ].filter((s) => s.url);
 
   return (
-    <div className="team-member-item wow fadeInUp" data-wow-delay={delay(index)}>
+    <div className="team-member-item wow fadeInUp" data-wow-delay={delay(index, 4)}>
       <div className="team-image">
         <Link href={`/team/${member.id}`}>
           <figure className="image-anime">
             <img src={member.photo || "/theme/images/team-1.jpg"} alt={member.name} />
           </figure>
         </Link>
-      </div>
-      <div className="team-body">
-        <div className="team-content">
-          <h3>
-            <Link href={`/team/${member.id}`}>{member.name}</Link>
-          </h3>
-          <p>{member.position}</p>
-        </div>
         {socials.length > 0 && (
-          <div className="team-social-icon">
+          <div className="team-social-icon team-social-overlay">
             <ul>
               {socials.map((s) => (
                 <li key={s.label}>
@@ -116,6 +108,14 @@ export function TeamCard({ member, index = 0 }: { member: TeamMember; index?: nu
             </ul>
           </div>
         )}
+      </div>
+      <div className="team-body">
+        <div className="team-content">
+          <h3>
+            <Link href={`/team/${member.id}`}>{member.name}</Link>
+          </h3>
+          <p>{member.position}</p>
+        </div>
       </div>
     </div>
   );

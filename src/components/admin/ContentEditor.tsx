@@ -67,7 +67,9 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
       );
 
     case "image":
-      return <ImageField label={field.label} value={String(value ?? "")} onChange={onChange} help={field.help} />;
+      return (
+        <ImageField label={field.label} value={String(value ?? "")} onChange={onChange} help={field.help} aspect={field.aspect} />
+      );
 
     case "group":
       return (

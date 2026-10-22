@@ -2,18 +2,12 @@ import Link from "next/link";
 import type { Content } from "@/lib/content-defaults";
 import SocialLinks from "./SocialLinks";
 
-export default function Footer({
-  settings,
-  focusAreas,
-}: {
-  settings: Content<"settings">;
-  focusAreas: string[];
-}) {
+export default function Footer({ settings }: { settings: Content<"settings"> }) {
   return (
     <footer className="main-footer">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-md-12">
+          <div className="col-lg-5 col-md-12">
             <div className="about-footer">
               <div className="footer-logo">
                 <figure>
@@ -26,20 +20,7 @@ export default function Footer({
             </div>
           </div>
 
-          <div className="col-lg-3 col-md-4 col-12">
-            <div className="footer-links">
-              <h3>what we do</h3>
-              <ul>
-                {focusAreas.slice(0, 5).map((area) => (
-                  <li key={area}>
-                    <Link href="/about#what-we-do">{area}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="col-lg-3 col-md-4 col-12">
+          <div className="col-lg-3 col-md-5 col-12">
             <div className="footer-links">
               <h3>quick links</h3>
               <ul>
@@ -52,7 +33,7 @@ export default function Footer({
             </div>
           </div>
 
-          <div className="col-lg-3 col-md-4 col-12">
+          <div className="col-lg-4 col-md-7 col-12">
             <div className="footer-links footer-contact-box">
               <h3>contact us</h3>
               <div className="footer-info-box">

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import AdminHeader from "@/components/admin/AdminHeader";
+import { FlashToast } from "@/components/admin/Toaster";
 import { EventForm } from "@/components/admin/EntityForms";
 import { ConfirmForm } from "@/components/admin/FormBits";
 import { db } from "@/lib/db";
@@ -13,7 +14,7 @@ export default async function EditEventPage({ params, searchParams }: PageProps<
   return (
     <>
       <AdminHeader title="Edit event" back={{ href: "/admin/events", label: "All events" }} />
-      {created && <div className="alert alert-success">Event created.</div>}
+      {created && <FlashToast message="Event created." />}
       <EventForm event={event} />
       <div className="d-flex gap-2">
         {event.published && (
