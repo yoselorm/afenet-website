@@ -6,21 +6,45 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:seed": "prisma db seed",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "move-to-cloud": "tsx scripts/move-to-cloud.ts"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "@tiptap/extension-image": "^3.32.0",
+    "@tiptap/pm": "^3.32.0",
+    "@tiptap/react": "^3.32.0",
+    "@tiptap/starter-kit": "^3.32.0",
+    "@vercel/blob": "^2.8.2",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.8",
+    "jose": "^6.2.13",
     "next": "16.4.2",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "sanitize-html": "^2.18.1",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sanitize-html": "^2.16.2",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
-    "tailwindcss": "^4",
+    "prisma": "^7.10.1",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

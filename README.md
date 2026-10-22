@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AFENET Website
 
-## Getting Started
+Next.js + MySQL website for the African Field Epidemiology Network, with a built-in dashboard (CMS).
 
-First, run the development server:
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run db:up        # start MySQL (Docker Desktop must be open)
+npm run dev          # start the site at http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+First time only:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run db:migrate   # create the tables
+npm run db:seed      # create the first admin + sample content
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Dashboard
 
-## Learn More
+Go to http://localhost:3000/admin and log in with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`
+(change the password under **My account** after the first login).
 
-To learn more about Next.js, take a look at the following resources:
+| Section        | What it controls                                                   |
+| -------------- | ------------------------------------------------------------------ |
+| News           | Articles on /news and the home page                                |
+| Events         | Upcoming / past events on /events and the home page                |
+| Team           | People on /team and the About page                                 |
+| Page content   | Headings, text, images and lists on every page                     |
+| Messages       | Submissions from the contact forms                                 |
+| Site settings  | Logo, phone, email, address, map and social links                  |
+| Admin users    | Who can log in to the dashboard                                    |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Where things live
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/(site)/` — public pages (Home, About, Events, News, Team, Contact)
+- `src/app/admin/` — dashboard pages and server actions (`_actions/`)
+- `src/lib/content-defaults.ts` — default page text and the fields each page has in the dashboard
+- `prisma/schema.prisma` — database tables
+- `public/theme/` — the Builtup theme's CSS, JS, fonts and images (`afenet.css` / `admin.css` are our additions)
+- `uploads/` — images uploaded in the dashboard (not committed to git; back this folder up)

@@ -1,0 +1,278 @@
+/* AFENET additions on top of the Builtup theme (custom.css). Uses the theme's colour variables. */
+
+/* The brand colours come from the AFENET logo (set in custom.css :root).
+   On dark backgrounds the logo blue is too dark to read, so a lighter tint is used there. */
+:root {
+	--accent-light-color: #A9BEF7;
+}
+
+.main-menu ul li a:hover,
+.main-menu ul li a:focus,
+.main-menu ul li a.nav-link.active,
+.hero .section-title h3,
+.cta-box .section-title h3,
+.page-header-box ol li.breadcrumb-item.active,
+.post-single-meta ol li i,
+.footer-links h3,
+.footer-links ul li:hover a {
+	color: var(--accent-light-color);
+}
+
+.slicknav_nav li a.nav-link.active {
+	color: var(--white-color);
+	text-decoration: underline;
+	text-underline-offset: 6px;
+}
+
+/* Icons that sit on dark panels are shown in white */
+.main-footer .icon-box img,
+.footer-links ul li:before,
+.contact-sidebar .contact-info .icon-box img {
+	filter: brightness(0) invert(1);
+}
+
+.footer-copyright .footer-social-links ul li a {
+	color: var(--white-color);
+	border-color: var(--accent-light-color);
+}
+
+.footer-copyright .footer-social-links ul li a:hover {
+	background: var(--accent-color);
+	border-color: var(--accent-color);
+}
+
+/* Buttons on dark backgrounds get a light border so they stand out */
+.cta-box .btn-default,
+.hero .btn-default:not(.btn-highlighted) {
+	box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.navbar-brand img {
+	max-height: 64px;
+	width: auto;
+}
+
+.footer-logo img {
+	max-width: 230px;
+	height: auto;
+}
+
+#loading-icon img {
+	width: 20px;
+}
+
+/* Event cards */
+.project-item .project-image {
+	position: relative;
+}
+
+.event-date-badge {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	z-index: 2;
+	background: var(--accent-color);
+	color: var(--white-color);
+	font-family: var(--accent-font);
+	font-weight: 700;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 1.1;
+	padding: 10px 14px;
+	border-radius: 14px;
+	font-size: 14px;
+}
+
+.event-date-badge span {
+	display: block;
+	font-size: 26px;
+}
+
+.event-meta {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 12px;
+}
+
+.event-meta li {
+	margin-bottom: 6px;
+}
+
+.event-meta i {
+	color: var(--accent-color);
+	width: 18px;
+	margin-right: 4px;
+}
+
+.post-item-meta {
+	color: var(--text-color);
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.post-item-meta i {
+	color: var(--accent-color);
+	margin-right: 4px;
+}
+
+/* Event filter tabs */
+.event-filter {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	flex-wrap: wrap;
+	margin-bottom: 50px;
+}
+
+.event-filter a.active {
+	background: var(--primary-color);
+	color: var(--white-color);
+}
+
+/* Event details box */
+.event-info-box {
+	background: var(--secondary-color);
+	border-radius: 30px;
+	padding: 30px;
+	margin-bottom: 40px;
+}
+
+.event-info-box ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px 50px;
+}
+
+.event-info-box li {
+	font-family: var(--accent-font);
+	color: var(--primary-color);
+	font-weight: 600;
+}
+
+.event-info-box li span {
+	display: block;
+	font-family: var(--default-font);
+	font-weight: 400;
+	color: var(--text-color);
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.event-info-box .btn-default {
+	margin-top: 25px;
+}
+
+/* What we do / focus areas */
+.what-we-do-list {
+	padding: 100px 0 70px;
+}
+
+.focus-area-item {
+	background: var(--secondary-color);
+	border-radius: 30px;
+	padding: 30px;
+	margin-bottom: 30px;
+	height: calc(100% - 30px);
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+	transition: all 0.3s ease-in-out;
+}
+
+.focus-area-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 15px 40px rgba(18, 34, 59, 0.08);
+}
+
+.focus-area-number {
+	flex: 0 0 auto;
+	width: 54px;
+	height: 54px;
+	border-radius: 50%;
+	background: var(--accent-color);
+	color: var(--white-color);
+	font-family: var(--accent-font);
+	font-weight: 800;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.focus-area-item h3 {
+	font-size: 20px;
+	line-height: 1.4em;
+	margin: 0;
+	text-transform: none;
+}
+
+/* Who we are paragraphs */
+.about-us-content .about-us-body p {
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
+/* Team */
+.team-category-title {
+	margin: 20px 0 40px;
+	text-align: center;
+}
+
+.team-content h3 a {
+	color: inherit;
+}
+
+.team-single-image img {
+	width: 100%;
+	border-radius: 30px;
+	aspect-ratio: 1 / 1.1;
+	object-fit: cover;
+}
+
+.team-single-content h2 {
+	font-size: 40px;
+	margin-bottom: 5px;
+}
+
+.team-single-content .team-position {
+	color: var(--accent-color);
+	font-family: var(--accent-font);
+	font-weight: 600;
+	font-size: 18px;
+	margin-bottom: 25px;
+}
+
+.team-single-content .team-social-icon ul {
+	justify-content: flex-start;
+}
+
+/* Generic */
+.empty-state {
+	text-align: center;
+	padding: 40px 0 80px;
+	color: var(--text-color);
+}
+
+.page-single-post .post-entry img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 20px;
+	margin: 20px 0;
+}
+
+.google-map-iframe iframe {
+	width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+	.focus-area-item {
+		padding: 20px;
+	}
+
+	.team-single-content {
+		margin-top: 30px;
+	}
+}

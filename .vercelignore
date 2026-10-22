@@ -1,0 +1,11 @@
+# Never upload secrets or local-only data to Vercel
+.env*
+uploads
+# Original photos (already uploaded through the dashboard)
+images
+.next
+node_modules
+src/generated
+.agents
+.claude
+.windsurf

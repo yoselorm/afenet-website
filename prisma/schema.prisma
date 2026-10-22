@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// Dashboard administrators
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(120)
+  email        String   @unique @db.VarChar(191)
+  passwordHash String   @db.VarChar(255)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model NewsPost {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  slug        String   @unique @db.VarChar(191)
+  excerpt     String?  @db.Text
+  content     String   @db.LongText
+  coverImage  String?  @db.VarChar(500)
+  author      String?  @db.VarChar(120)
+  tags        String?  @db.VarChar(500)
+  published   Boolean  @default(false)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, publishedAt])
+}
+
+model Event {
+  id              Int       @id @default(autoincrement())
+  title           String    @db.VarChar(255)
+  slug            String    @unique @db.VarChar(191)
+  summary         String?   @db.Text
+  content         String    @db.LongText
+  coverImage      String?   @db.VarChar(500)
+  location        String?   @db.VarChar(255)
+  startDate       DateTime
+  endDate         DateTime?
+  registrationUrl String?   @db.VarChar(500)
+  published       Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([published, startDate])
+}
+
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(120)
+  position  String   @db.VarChar(160)
+  category  String?  @db.VarChar(100)
+  photo     String?  @db.VarChar(500)
+  bio       String?  @db.Text
+  email     String?  @db.VarChar(191)
+  linkedin  String?  @db.VarChar(500)
+  twitter   String?  @db.VarChar(500)
+  facebook  String?  @db.VarChar(500)
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(120)
+  email     String   @db.VarChar(255)
+  phone     String?  @db.VarChar(40)
+  subject   String?  @db.VarChar(200)
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// Editable page text and site settings, stored as JSON per key (e.g. "home", "about")
+model Setting {
+  key       String   @id @db.VarChar(100)
+  value     Json
+  updatedAt DateTime @updatedAt
+}
