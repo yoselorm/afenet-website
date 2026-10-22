@@ -58,10 +58,12 @@ export function ContactSection({
   settings,
   subtitle,
   title,
+  image,
 }: {
   settings: Content<"settings">;
   subtitle: string;
   title: string;
+  image: string;
 }) {
   return (
     <div className="contact-us">
@@ -87,11 +89,13 @@ export function ContactSection({
                   <h3>{settings.email}</h3>
                 </div>
               </div>
-              <div className="contact-info-image">
-                <figure>
-                  <img src="/theme/images/contact-info-img.png" alt="" />
-                </figure>
-              </div>
+              {image && (
+                <div className="contact-info-image">
+                  <figure>
+                    <img src={image} alt="" />
+                  </figure>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-lg-8 col-md-7">

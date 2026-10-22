@@ -502,3 +502,23 @@
 .footer-links ul.legal-links li {
 	text-transform: none;
 }
+
+/* Contact boxes (home page and Contact Us page): the image always fills the same 5:7 space,
+   so uploading a different picture doesn't change the height of the box */
+.contact-sidebar {
+	overflow: hidden;
+}
+
+.contact-sidebar .contact-info-image figure {
+	margin: 0;
+}
+
+.contact-sidebar .contact-info-image img,
+.contact-sidebar.page-contact-sidebar .contact-info-image img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 5 / 7;
+	object-fit: cover;
+	object-position: center top;
+	border-radius: 20px 20px 0 0;
+}

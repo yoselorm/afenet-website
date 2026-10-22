@@ -60,6 +60,7 @@ export default function ImageField({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [cropSrc, setCropSrc] = useState<string | null>(null);
+  const [cropPng, setCropPng] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const update = (url: string) => {
@@ -86,8 +87,10 @@ export default function ImageField({
     const copy = new File([await file.arrayBuffer()], file.name, { type: file.type });
     if (fileRef.current) fileRef.current.value = "";
     // Photos go through the crop editor; GIFs and SVGs (animations, logos) are uploaded as they are
-    if (aspect && SHRINK_TYPES.includes(copy.type)) setCropSrc(URL.createObjectURL(copy));
-    else upload(copy);
+    if (aspect && SHRINK_TYPES.includes(copy.type)) {
+      setCropPng(copy.type === "image/png");
+      setCropSrc(URL.createObjectURL(copy));
+    } else upload(copy);
   }
 
   function closeCropper() {
@@ -110,7 +113,10 @@ export default function ImageField({
               {busy ? "Uploading…" : value ? "Change image" : "Upload image"}
             </button>
             {canRecrop && (
-              <button type="button" className="btn btn-outline-primary btn-sm" disabled={busy} onClick={() => setCropSrc(value)}>
+              <button type="button" className="btn btn-outline-primary btn-sm" disabled={busy} onClick={() => {
+                  setCropPng(/\.png(\?|$)/i.test(value));
+                  setCropSrc(value);
+                }}>
                 <i className="fa-solid fa-crop-simple me-1"></i> Adjust
               </button>
             )}
@@ -137,6 +143,7 @@ export default function ImageField({
         <ImageCropper
           src={cropSrc}
           aspect={aspect}
+          keepTransparency={cropPng}
           onCancel={closeCropper}
           onDone={async (file) => {
             closeCropper();

@@ -12,6 +12,9 @@ export type Field =
 
 const IMG = "/theme/images";
 
+const CONTACT_IMAGE_HELP =
+  "Shown in a fixed portrait (5:7) space so the box keeps its height. A cut-out PNG with a transparent background also works.";
+
 const pageHeaderFields = (title: string): Field => ({
   name: "header",
   label: "Page banner",
@@ -110,6 +113,7 @@ export const contentDefaults = {
     contact: {
       subtitle: "contact us",
       title: "Get in touch with us",
+      image: `${IMG}/contact-info-img.png`,
     },
   },
 
@@ -339,6 +343,7 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
         fields: [
           { name: "subtitle", label: "Small heading", type: "text" },
           { name: "title", label: "Main heading", type: "text" },
+          { name: "image", label: "Image in the dark contact box", type: "image", aspect: 5 / 7, help: CONTACT_IMAGE_HELP },
         ],
       },
     ],
@@ -446,7 +451,7 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
         fields: [
           { name: "title", label: "Heading", type: "text" },
           { name: "text", label: "Text", type: "textarea" },
-          { name: "image", label: "Side image", type: "image" },
+          { name: "image", label: "Image in the dark side box", type: "image", aspect: 5 / 7, help: CONTACT_IMAGE_HELP },
         ],
       },
     ],

@@ -173,7 +173,7 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <ContactSection settings={settings} subtitle={home.contact.subtitle} title={home.contact.title} />
+      <ContactSection settings={settings} subtitle={home.contact.subtitle} title={home.contact.title} image={home.contact.image} />
     </>
   );
 }
