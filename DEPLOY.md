@@ -6,7 +6,7 @@ The app runs anywhere Node.js 20+ runs. Two setups are supported without code ch
 |---|---|---|
 | App | Vercel | `npm run build && npm start` on the server |
 | Database | Aiven MySQL | MySQL on the server |
-| Uploaded images | Vercel Blob (`BLOB_READ_WRITE_TOKEN` set) | `uploads/` folder (no token set) |
+| Uploaded images | Vercel Blob (`BLOB_STORE_ID` or `BLOB_READ_WRITE_TOKEN` set) | `uploads/` folder (neither set) |
 
 ---
 
@@ -29,7 +29,9 @@ npx vercel link       # answer the questions; creates the project
 
 ### 3. Create image storage (Vercel Blob)
 Vercel dashboard → your project → **Storage** → **Create** → **Blob** → connect it to the project.
-This adds `BLOB_READ_WRITE_TOKEN` to the project automatically. Copy its value (Storage → your store → `.env.local` tab).
+Choose **Public** access (images must be viewable by visitors). Connecting it adds `BLOB_STORE_ID`
+(or, for older stores, `BLOB_READ_WRITE_TOKEN`) to the project automatically — the site works with either.
+For the move script below you also need the store's read-write token (Storage → your store → `.env.local` tab).
 
 ### 4. Copy the local website to the cloud
 Create `afenet-website/.env.cloud` (it is git-ignored):
@@ -54,7 +56,7 @@ Vercel dashboard → project → **Settings → Environment Variables** (Product
 | `DATABASE_URL` | the same value as `CLOUD_DATABASE_URL` |
 | `DATABASE_CA_CERT` | the CA certificate (paste the whole `ca.pem` contents) |
 | `AUTH_SECRET` | a **new** random value: `openssl rand -base64 32` |
-| `BLOB_READ_WRITE_TOKEN` | already added in step 3 |
+| `BLOB_STORE_ID` / `BLOB_READ_WRITE_TOKEN` | already added in step 3 |
 
 ### 6. Deploy
 ```bash

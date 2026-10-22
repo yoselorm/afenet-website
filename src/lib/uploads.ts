@@ -4,7 +4,9 @@ import path from "node:path";
 import { put } from "@vercel/blob";
 
 // Where dashboard uploads are stored:
-// - Vercel Blob when BLOB_READ_WRITE_TOKEN is set (Vercel's servers have no permanent disk)
+// - Vercel Blob when a Blob store is connected (Vercel's servers have no permanent disk).
+//   Vercel sets either BLOB_STORE_ID (newer stores; @vercel/blob then signs in automatically)
+//   or BLOB_READ_WRITE_TOKEN (older stores).
 // - otherwise the local uploads/ folder, served by src/app/uploads/[...path]/route.ts
 //   (local development, or a normal server such as a GoDaddy VPS)
 export const UPLOAD_DIR = path.join(process.cwd(), "uploads");
@@ -27,7 +29,7 @@ export function contentTypeFor(file: string) {
 
 // Saves a file and returns the URL to use in <img src>
 export async function storeFile(relativePath: string, data: Buffer, contentType: string) {
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  if (process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN) {
     const blob = await put(`uploads/${relativePath}`, data, { access: "public", contentType, addRandomSuffix: false });
     return blob.url;
   }
@@ -36,7 +38,7 @@ export async function storeFile(relativePath: string, data: Buffer, contentType:
   if (process.env.VERCEL) {
     throw new Error(
       "Image storage isn't connected. In Vercel, connect a Public Blob store to this project " +
-        "(it adds BLOB_READ_WRITE_TOKEN), then redeploy.",
+        "(it adds BLOB_STORE_ID), then redeploy.",
     );
   }
 
