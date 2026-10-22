@@ -22,11 +22,15 @@ export async function POST(request: Request) {
     return Response.json({ error: "Image must be smaller than 8 MB" }, { status: 400 });
   }
 
-  const month = new Date().toISOString().slice(0, 7); // e.g. 2026-10
-  const data = await optimise(Buffer.from(await file.arrayBuffer()), file.type);
-  const url = await storeFile(`${month}/${randomUUID()}${ext}`, data, file.type);
-
-  return Response.json({ url });
+  try {
+    const month = new Date().toISOString().slice(0, 7); // e.g. 2026-10
+    const data = await optimise(Buffer.from(await file.arrayBuffer()), file.type);
+    const url = await storeFile(`${month}/${randomUUID()}${ext}`, data, file.type);
+    return Response.json({ url });
+  } catch (error) {
+    console.error("Upload failed:", error);
+    return Response.json({ error: `Upload failed: ${error instanceof Error ? error.message : String(error)}` }, { status: 500 });
+  }
 }
 
 // Large photos straight from a camera are shrunk so pages stay fast. GIF and SVG are kept as-is.

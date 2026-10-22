@@ -2,12 +2,38 @@
 
 import { useRef, useState } from "react";
 
-export async function uploadImage(file: File): Promise<string> {
+// Photos are shrunk in the browser before upload: hosts like Vercel reject requests over ~4.5 MB,
+// and the server would resize them to this width anyway
+const MAX_WIDTH = 2400;
+const SHRINK_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+async function shrink(file: File): Promise<File> {
+  if (!SHRINK_TYPES.includes(file.type)) return file;
+  const bitmap = await createImageBitmap(file).catch(() => null);
+  if (!bitmap) return file;
+  if (bitmap.width <= MAX_WIDTH && file.size < 1_500_000) return file;
+
+  const scale = Math.min(1, MAX_WIDTH / bitmap.width);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  // PNGs may have transparency (logos), so they stay PNG; photos become JPEG
+  const type = file.type === "image/png" ? "image/png" : "image/jpeg";
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, 0.85));
+  if (!blob) return file;
+  const name = file.name.replace(/\.\w+$/, type === "image/png" ? ".png" : ".jpg");
+  return new File([blob], name, { type });
+}
+
+export async function uploadImage(original: File): Promise<string> {
+  const file = await shrink(original);
   const body = new FormData();
   body.append("file", file);
   const res = await fetch("/api/admin/upload", { method: "POST", body });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || "Upload failed");
+  if (res.status === 413) throw new Error("This image is too large. Please use a smaller file.");
+  if (!res.ok) throw new Error(data.error || `Upload failed (error ${res.status})`);
   return data.url;
 }
 
