@@ -1,11 +1,13 @@
-# Never upload secrets or local-only data to Vercel
+# Never upload secrets or local-only data to Vercel.
+# A leading "/" means "only at the project root" — without it, the rule would also
+# match folders like public/theme/images or src/app/uploads.
 .env*
-uploads
+/uploads
 # Original photos (already uploaded through the dashboard)
-images
-.next
-node_modules
-src/generated
-.agents
-.claude
-.windsurf
+/images
+/.next
+/node_modules
+/src/generated
+/.agents
+/.claude
+/.windsurf

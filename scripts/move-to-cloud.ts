@@ -89,7 +89,7 @@ async function main() {
     remote.teamMember.createMany({ data: swap(team) }),
     remote.contactMessage.createMany({ data: messages }),
     ...settings.map((s) => remote.setting.create({ data: { key: s.key, value: swap(s.value) ?? {} } })),
-  ]);
+  ], { timeout: 120_000, maxWait: 30_000 }); // a remote database is slower than the local one
 
   console.log(
     `4/4  Done: ${users.length} admin users, ${news.length} news posts, ${events.length} events, ` +
