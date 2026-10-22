@@ -16,14 +16,19 @@ export async function generateMetadata({ params }: PageProps<"/news/[slug]">): P
 }
 
 export default async function NewsPostPage({ params }: PageProps<"/news/[slug]">) {
-  const [post, settings] = await Promise.all([getPost((await params).slug), getContent("settings")]);
+  const [post, settings, newsPage] = await Promise.all([
+    getPost((await params).slug),
+    getContent("settings"),
+    getContent("news"),
+  ]);
   if (!post) notFound();
 
   const tags = (post.tags ?? "").split(",").map((t) => t.trim()).filter(Boolean);
 
   return (
     <>
-      <PageHeader title={post.title}>
+      {/* Uses the News page banner (Page content → News page) */}
+      <PageHeader title={post.title} image={newsPage.header.image}>
         <div className="post-single-meta wow fadeInUp">
           <ol className="breadcrumb">
             {post.author && (

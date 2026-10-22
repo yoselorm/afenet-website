@@ -398,19 +398,19 @@ export const contentSchemas: Record<ContentKey, { title: string; description: st
 
   events: {
     title: "Events page",
-    description: "Banner for the events listing page.",
+    description: "Banner for the Events page — also used on every event's own page.",
     fields: [pageHeaderFields("Events")],
   },
 
   news: {
     title: "News page",
-    description: "Banner for the news listing page.",
+    description: "Banner for the News page — also used on every article's own page.",
     fields: [pageHeaderFields("News")],
   },
 
   team: {
     title: "Our Team page",
-    description: "Banner and intro for the team page.",
+    description: "Banner and intro for the team page — the banner is also used on each team member's page.",
     fields: [pageHeaderFields("Our Team"), sectionTitleFields("Intro")],
   },
 

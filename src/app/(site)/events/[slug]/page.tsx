@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/site/PageHeader";
+import { getContent } from "@/lib/content";
 import { db } from "@/lib/db";
 import { formatEventDates, startOfToday } from "@/lib/utils";
 
@@ -14,14 +15,15 @@ export async function generateMetadata({ params }: PageProps<"/events/[slug]">):
 }
 
 export default async function EventPage({ params }: PageProps<"/events/[slug]">) {
-  const event = await getEvent((await params).slug);
+  const [event, eventsPage] = await Promise.all([getEvent((await params).slug), getContent("events")]);
   if (!event) notFound();
 
   const upcoming = event.startDate >= startOfToday();
 
   return (
     <>
-      <PageHeader title={event.title} crumbs={[{ label: "events", href: "/events" }]} />
+      {/* Uses the Events page banner (Page content → Events page) */}
+      <PageHeader title={event.title} image={eventsPage.header.image} crumbs={[{ label: "events", href: "/events" }]} />
 
       <div className="page-single-post">
         <div className="container">

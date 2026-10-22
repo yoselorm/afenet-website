@@ -1,10 +1,12 @@
 import Link from "next/link";
 import PageHeader from "@/components/site/PageHeader";
+import { getContent } from "@/lib/content";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const home = await getContent("home");
   return (
     <>
-      <PageHeader title="Page Not Found" />
+      <PageHeader title="Page Not Found" image={home.hero.image} />
       <div className="error-page">
         <div className="container">
           <div className="row">

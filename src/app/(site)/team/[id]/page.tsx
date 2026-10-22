@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/site/PageHeader";
+import { getContent } from "@/lib/content";
 import { db } from "@/lib/db";
 import { paragraphs } from "@/lib/utils";
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/team/[id]">): Pro
 }
 
 export default async function TeamMemberPage({ params }: PageProps<"/team/[id]">) {
-  const member = await getMember((await params).id);
+  const [member, teamPage] = await Promise.all([getMember((await params).id), getContent("team")]);
   if (!member) notFound();
 
   const socials = [
@@ -28,7 +29,8 @@ export default async function TeamMemberPage({ params }: PageProps<"/team/[id]">
 
   return (
     <>
-      <PageHeader title={member.name} crumbs={[{ label: "our team", href: "/team" }]} />
+      {/* Uses the Our Team page banner (Page content → Our Team page) */}
+      <PageHeader title={member.name} image={teamPage.header.image} crumbs={[{ label: "our team", href: "/team" }]} />
 
       <div className="page-single-post">
         <div className="container">
