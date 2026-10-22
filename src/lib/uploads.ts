@@ -32,6 +32,14 @@ export async function storeFile(relativePath: string, data: Buffer, contentType:
     return blob.url;
   }
 
+  // Vercel's servers can't keep files, so uploads there must go to Blob
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Image storage isn't connected. In Vercel, connect a Public Blob store to this project " +
+        "(it adds BLOB_READ_WRITE_TOKEN), then redeploy.",
+    );
+  }
+
   const filePath = path.join(UPLOAD_DIR, relativePath);
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, data);
